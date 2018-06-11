@@ -296,6 +296,11 @@ endfunction
 " By default we will default to our internal
 " configuration settings for prettier
 function! s:Get_Prettier_Exec_Args(config) abort
+  " The latest vim-prettier is incompatible with versions of Prettier < 1.9.
+  " It will insert warnings for many of the following flags into the
+  " top of any file that is prettified. :-(
+  return ' ' . simplify(expand('%:p')) . ' --stdin'
+
   " Allow params to be passed as json format
   " convert bellow usage of globals to a get function o the params defaulting to global
   let l:cmd = ' --print-width ' .
